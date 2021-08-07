@@ -33,8 +33,9 @@ selection|   45 |     2 |      0 |       9
 insertion|   47 |     2 |      0 |      10
 radix8   |   77 |    10 |    512 |      13
 
-¹ - *stacklvl\*6 + stackint + 2*
-² - *stacklvl\*4 + stackint + 2*
+¹ - *stacklvl\*6+stackint+2*
+
+² - *stacklvl\*4+stackint+2*
 
 ### 1000 byte benchmarking
 
