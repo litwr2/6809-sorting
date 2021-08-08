@@ -109,7 +109,7 @@ int main (int argc, char *argv[]) {
     memory = (UINT8 *)malloc(0x10000);
     memset (memory, 0, 0x10000);
     if (argc != 2) return 1;
-    printf("ESZ=%d SZB=%d\n", ESZ, SZB);
+    printf("ESZ=%d SZB=%d DATA=0x%x FILLT=%d\n", ESZ, SZB, DATAADDR, FILLT);
     if ((prg = fopen(argv[1], "r")) == 0) return 2;
     printf("%d bytes loaded\n", fread(memory + STARTP, 1, 65536 - STARTP, prg));
     fclose(prg);

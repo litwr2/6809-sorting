@@ -73,7 +73,7 @@ quicksort:  ;i - x, j - y
            tfr s,d
            subd #stacklvl*6
            bcc *+3
-           rts        ;error: quicksort may meditate, C=1 - error
+           rts        C=1 - error: not enough stack space
 
            std .stacklim+2
            cmpd #stackint   ;this check may be skipped if irq are disabled and nmi are impossible
