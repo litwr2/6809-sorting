@@ -1,8 +1,8 @@
-data = $500   ;sorted array must start here
-auxtable = $300  ;address of the auxilary 512 byte array, it must be page aligned
+data = $400   ;sorted array must start here
+auxtable = $200  ;address of the auxilary 512 byte array, it must be page aligned
 sz = 60000    ;number of elements in the array
 
-        org $200
+        org $100
         ldd #auxtable
         ldy #data
         ldx #sz

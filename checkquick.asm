@@ -4,7 +4,7 @@ sz = 1000   ;number of elements in the array
 
 ODD_OFFSET = (data & 1) && ESZ=2  ;1 makes code larger and slower
 
-     org $200
+     org $100
         ldd #data
         ldx #(data+sz*ESZ-ESZ)
         jsr quicksort     ;C=1 means fail

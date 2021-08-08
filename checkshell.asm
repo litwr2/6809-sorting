@@ -5,7 +5,7 @@ shelltabidx = 7  ;the default index to the gap table, the first index is equal t
 data = $400  ;sorted array must start here
 sz = 1000   ;number of elements in the array
 
-        org $200
+        org $100
         ldx #data
         ldy #data+sz*ESZ
         ldu #shelltabidx*2  ;may be less
