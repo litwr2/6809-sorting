@@ -142,12 +142,9 @@ int main (int argc, char *argv[]) {
     for (int i = 0; i < SZB; i += ESZ)
 #if ESZ==2
         if (*((uint16_t*)(memory + DATAADDR + i)) != *((uint16_t*)(memcopy + DATAADDR + i))) {
-#else
-        if (memory[DATAADDR + i] != memcopy[DATAADDR + i]) {
-#endif
-#if ESZ==2
             printf("ERROR! %d %x %x\n", i/ESZ, memory[DATAADDR + i]*256 + memory[DATAADDR + i + 1], memcopy[DATAADDR + i]*256 + memcopy[DATAADDR + i + 1]);
 #else
+        if (memory[DATAADDR + i] != memcopy[DATAADDR + i]) {
             printf("ERROR! %d %x %x\n", i, memory[DATAADDR + i], memcopy[DATAADDR + i]);
 #endif
             return 2;

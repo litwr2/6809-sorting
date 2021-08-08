@@ -180,7 +180,7 @@ quicksort:  ;i - x, j - y
            stx .lb+2
            ldy .ub+1
            bra .quicksort0
-.qs_l7:    
+.qs_l7:
 .inix:     cmps #0
            beq .quit   ;C=0 is ok
 
