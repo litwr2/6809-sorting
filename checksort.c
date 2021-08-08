@@ -12,6 +12,7 @@
 extern unsigned X, Y, S, U, PC;
 extern unsigned A, B, DP;
 extern unsigned H, N, Z, V, C;
+extern int cpu_quit;
 
 uint8_t memcopy[65536];
 char* format(size_t a) {
@@ -128,7 +129,7 @@ int main (int argc, char *argv[]) {
 #else
     for (int i = 0; i < OSZB; i += 1) printf("%x ", memory[DATAADDR + i]);puts("");
 #endif
-    while(memory[PC] != 0x3f) {  //swi
+    while(memory[PC] != 0x3f && cpu_quit != 0) {  //swi
         clockticks6809 += cpu_execute(0);
         //if (PC == 0x26a) monitor_on = 1;
         instructions++;

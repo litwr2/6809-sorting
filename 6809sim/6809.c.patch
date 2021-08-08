@@ -1,0 +1,75 @@
+--- 6809.c	2021-08-07 23:38:48.138028943 +0300
++++ ../6809.c	2021-08-04 09:42:37.339159624 +0300
+@@ -1,3 +1,5 @@
++// EXG and TFR are fixed, litwr, 2021
++
+ /*
+     6809.c   	-	cycle accurate simple 6809 cpu emulator
+     Copyright (C) 2001  Arto Salmi
+@@ -363,18 +365,30 @@
+ 
+ void exg (void)
+ {
+-  unsigned tmp1 = 0xff;
+-  unsigned tmp2 = 0xff;
++  unsigned tmp1, tmp2;
+   unsigned post = imm_byte();
++  unsigned post1 = post >> 4;
++  unsigned post2 = post & 15;
+ 
+-  if(((post ^ (post << 4)) & 0x80) == 0)
+-  {
+-    tmp1 = get_reg(post >> 4);
+-    tmp2 = get_reg(post & 15);
+-  }
++  tmp1 = get_reg(post1);
++  tmp2 = get_reg(post2);
+ 
+-  set_reg(post & 15, tmp1);
+-  set_reg(post >> 4, tmp2);
++  if (((post1 ^ post2) & 8) != 0)
++      if ((post1 & 8) != 0) {   //post1 - 8-bit
++          tmp2 &= 255;
++          if ((post1 & 3) > 1)  //DP or CC
++              tmp1 += tmp1 << 8;
++          else if ((post2 & 3) == 0 && (post1 & 3) == 0) //post2 - D, post1 - A
++              tmp1 += tmp1 << 8;
++          else
++              tmp1 += 0xff00;
++      } else {  //post2 - 8-bit
++          tmp1 &= 255;
++          tmp2 += 0xff00;
++      }
++
++  set_reg(post2, tmp1);
++  set_reg(post1, tmp2);
+ 
+   cpu_clk -= 8;
+ }
+@@ -511,13 +525,21 @@
+ 
+ void tfr (void)
+ {
+-  unsigned tmp1 = 0xff;
+   unsigned post = imm_byte();
++  unsigned post1 = post >> 4;
++  unsigned post2 = post & 15;
++  unsigned tmp1 = get_reg(post1);
++
++  if (((post1 ^ post2) & 8) != 0)
++      if ((post1 & 8) != 0)   //post1 - 8-bit
++          if ((post1 & 3) > 1)  //DP or CC
++              tmp1 += tmp1 << 8;
++          else
++              tmp1 += 0xff00;
++      else   //post2 - 8-bit
++          tmp1 &= 255;
+ 
+-  if(((post ^ (post << 4)) & 0x80) == 0) tmp1 = get_reg(post >> 4);
+-
+-  set_reg(post & 15, tmp1);
+-
++  set_reg(post2, tmp1);
+   cpu_clk -= 6;
+ }
+ 
