@@ -48,12 +48,10 @@ int gena(int j, int i) {
     if ((j - i & 1) == 0) return j - i;
     return gena1(j + i - 1 >> 1) + j - i + 1;
 }
-#define ESZ 1
-#define SZE 1000
+#include "data.h"
 #define SZB (ESZ*SZE)
-#define OSZB 8
-#define DATAADDR 0x400
-#define STARTP 0x200
+#define OLIM 9
+#define OSZB (OLIM < SZB ? OLIM : SZB)
 #define FILLT 1
 /* 1 - rnd1, 2 - rnd2, 3 - 2val, 4 - slowqsr, 5 - slowqsl, 6 - rev, 7 - ord, 8 - const */
 void filling() {
@@ -83,7 +81,7 @@ void filling() {
     data[4] = 2;
     data[5] = 4;
     for (int i = 3; i < SZB/4; i++) {
-	    data[2*i] = data[i];
+        data[2*i] = data[i];
         data[2*i + 1] = data[2*i - 1] + 2;
         data[i] = 2*i + 1;
     }

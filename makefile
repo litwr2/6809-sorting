@@ -8,4 +8,4 @@ insertion selection shell radix8 quick:
 	make
 	./checksort out.bin
 clean:
-	rm *.o 6809sim/*.o checksort out.*
+	rm *.o 6809sim/*.o checksort out.* data.h
