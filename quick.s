@@ -1,6 +1,6 @@
 ;for vasm assembler, oldstyle syntax
 stacklvl = 26   ;stacklvl*6+stackint is amount of free stack space required for successful work of this routine
-stackint = 24   ;stack space reserved for irq and nmi
+;stackint = 24   ;stack space should be reserved for irq and nmi, this value isn't used in code
 
 ;#include <setjmp.h>
 ;#define sz 30000
@@ -72,14 +72,7 @@ quicksort:  ;i - x, j - y
            sts .qs_csp+2
            tfr s,d
            subd #stacklvl*6
-           bcc *+3
-           rts        C=1 - error: not enough stack space
-
            std .stacklim+2
-           cmpd #stackint   ;this check may be skipped if irq are disabled and nmi are impossible
-           bcc *+3
-           rts        ;error: irq may get not enough space, C=1 - error
-
 .qs_csp:   lds #0
 .sz:       ldy #0
            sty .ub+1
@@ -175,5 +168,5 @@ quicksort:  ;i - x, j - y
            stx .lb+2
            ldy .ub+1
            jsr .quicksort0   ;don't use the tail call optimization! it can be much slower for some data
-.quit:     rts       ;C=0 - ok
+.quit:     rts
 

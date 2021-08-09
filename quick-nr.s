@@ -1,7 +1,7 @@
 ;for vasm assembler, oldstyle syntax
 ;no recursion variant, it uses 1/3 less stack space
 stacklvl = 26   ;stacklvl*4+stackint is amount of free stack space required for successful work of this routine
-stackint = 24   ;stack space reserved for irq and nmi
+;stackint = 24   ;stack space should be reserved for irq and nmi, this value isn't used in code
 
 ;#define sz 30000
 ;#define splimit 20
@@ -77,14 +77,7 @@ quicksort:  ;i - x, j - y
            sts .inix+2
            tfr s,d
            subd #stacklvl*4
-           bcc *+3
-           rts        ;C=1 - error: not enough stack space
-
            std .stacklim+2
-           cmpd #stackint   ;this check may be skipped if irq are disabled and nmi are impossible
-           bcc *+3
-           rts        ;error: irq may get not enough space, C=1 - error
-
 .qs_csp:   lds #0
 .sz:       ldy #0
            sty .ub+1
@@ -182,11 +175,11 @@ quicksort:  ;i - x, j - y
            bra .quicksort0
 .qs_l7:
 .inix:     cmps #0
-           beq .quit   ;C=0 is ok
+           beq .quit
 
            puls y,u
            sty .ub+1
            stu .lb+2
            jmp .quicksort1
-.quit:     rts       ;C=0 - ok
+.quit:     rts
 
