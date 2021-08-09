@@ -75,10 +75,10 @@ quicksort:  ;i - x, j - y
            std .stacklim+2
 .qs_csp:   lds #0
 .sz:       ldy #0
-           sty .ub+1
 .data:     ldx #0
            stx .lb+2
-
+.quicksort1:
+           sty .ub+1
 .quicksort0:
 .stacklim: cmps #0
            bcs .qs_csp
@@ -156,9 +156,8 @@ quicksort:  ;i - x, j - y
 
            ldd .ub+1
            pshs d,x
-           sty .ub+1
            ;ldx .lb+2
-           jsr .quicksort0
+           jsr .quicksort1
            puls d,x
            std .ub+1
 .qs_l5:

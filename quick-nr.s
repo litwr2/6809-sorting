@@ -87,9 +87,10 @@ quicksort:  ;i - x, j - y
 .quicksort0:
 .stacklim: cmps #0
            bcs .qs_csp
-.quicksort1:
+
            ldx .lb+2
            ;ldy .ub+1
+.quicksort1:
            tfr y,d
            addd .lb+2
        if ESZ=2
@@ -159,8 +160,8 @@ quicksort:  ;i - x, j - y
 .lb:       cmpy #0
            bls .qs_l5
 
-           ldd .ub+1
-           pshs d,x
+           ldu .ub+1
+           pshs x,u
            sty .ub+1
            ;ldx .lb+2
            bra .quicksort0
@@ -168,8 +169,8 @@ quicksort:  ;i - x, j - y
 .ub:       cmpx #0
            bcc .qs_l7
 
-           ldd .lb+2
-           pshs d,y      ;don't remove these pushes, they actually make things faster
+           pshs y
+           pshs y      ;don't remove these pushes, they actually make things faster
            stx .lb+2
            ldy .ub+1
            bra .quicksort0
@@ -177,9 +178,9 @@ quicksort:  ;i - x, j - y
 .inix:     cmps #0
            beq .quit
 
-           puls y,u
+           puls x,y
            sty .ub+1
-           stu .lb+2
+           stx .lb+2
            jmp .quicksort1
 .quit:     rts
 
