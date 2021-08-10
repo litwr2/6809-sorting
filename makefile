@@ -1,4 +1,4 @@
-CFLAGS = -O3 -DFILLT=$(FILLT)
+CFLAGS = -O3 -DFILLT=$(FILLT) -DSRAND=$(SRAND)
 checksort: checksort.o 6809sim/6809.o 6809sim/monitor.o
 checksort.o: checksort.c data.h
 6809sim/6809.o: 6809sim/6809.c

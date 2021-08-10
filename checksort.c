@@ -52,7 +52,12 @@ int gena(int j, int i) {
 #define SZB (ESZ*SZE)
 #define OLIM 9
 #define OSZB (OLIM < SZB ? OLIM : SZB)
+#if !defined(SRAND) || SRAND + 0 == 0
+#undef SRAND
+#define SRAND 0
+#endif
 #if !defined(FILLT) || FILLT + 0 == 0
+#undef FILLT
 #define FILLT 1
 #endif
 /* 1 - rnd1, 2 - rnd2, 3 - 2val, 4 - slowqsr, 5 - slowqsl, 6 - rev, 7 - ord, 8 - const */
@@ -116,7 +121,7 @@ int main (int argc, char *argv[]) {
     printf("%d bytes loaded\n", fread(memory + STARTP, 1, 65536 - STARTP, prg));
     fclose(prg);
     monitor_init();
-    srand(0);
+    srand(SRAND);
     cpu_reset();
     monitor_on = 0;
     DP = 0x0;
