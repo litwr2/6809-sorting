@@ -95,4 +95,4 @@ reversed | 12,234,963| 11,923,720|23,578,009|15,301,335,025|27,900,090,012
 sorted   | 11,559,718| 11,248,475|14,849,043|13,951,335,025|     1,469,997
 constant | 20,529,725| 20,218,486|14,849,043|13,951,335,025|     1,469,997
 
-Check also [Z80-sorting](https://github.com/litwr2/Z80-sorting) and [6502-sorting](https://github.com/litwr2/6502-sorting).
+Check also [Z80-sorting](https://github.com/litwr2/Z80-sorting), [6502-sorting](https://github.com/litwr2/6502-sorting), and [Benchmark Comparisons](https://litwr2.github.io/sort-benchmark/main.html).
